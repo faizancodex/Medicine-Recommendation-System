@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicare Health Solutions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- fontawesome cdn -->
+    <script src="https://kit.fontawesome.com/47bfcb75ec.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+             <img src="{{ url_for('static', filename='img2.png') }}" alt="">
+            <h2>M.H.S</h2>
+        </div>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/developer">Developer</a>
+            <a href="/blog">Blog</a>
+        </nav>
+
+        <div class="user-account">
+            <a href="#" class="btn" title="Create account">Signup</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- input box -->
+        <div class="input-container">
+            <div>
+                <form  action="/predict" method="post">
+                    <label for="symptoms">Enter your symptoms:</label>
+                    <br>
+                    <textarea name="symptoms" id="output" rows="4" cols="80"
+                        placeholder="Type symptoms such as high_fever, vomiting, headache etc" required></textarea>
+                    <button title="Search by voice" type="button" class="microphone" onclick="startRecognition()">
+                        <i id="microphone-icon" class="fas fa-microphone"></i>
+                    </button>
+                    {% if message %}
+
+                    <p>{{ message }}</p>
+                    
+                    {% endif %}
+                    <br>
+                    <button type="submit" class="submit">Predict</button>
+                </form>
+            </div>
+        </div>
+
+        {% if predicted_disease %}
+        <!-- Result -->
+        <div class="output-container">
+            <h1>Our Ai Systen Result</h1>
+            <div class="out-buttons">
+                <!-- Buttons to trigger different popups -->
+                <button onclick="openPopup('diseasePopup')" style="background-color: #F95454;">Disease</button>
+                <button onclick="openPopup('descriptionPopup')" style="background-color: #55AD9B;">Description</button>
+                <button onclick="openPopup('precautionPopup')"
+                    style="background-color: cornflowerblue;">Precaution</button>
+                <button onclick="openPopup('medicationPopup')" style="background-color: #50c878;">Medication</button>
+                <button onclick="openPopup('workoutPopup')" style="background-color: darkviolet;">Workout</button>
+                <button onclick="openPopup('dietsPopup')" style="background-color: #D7B26D;">Diets</button>
+            </div>
+        </div>
+        {% endif %}
+
+    </main>
+
+
+
+
+    <!-- Popup Overlays and Content for each topic -->
+
+    <div class="popup-overlay" id="diseasePopup">
+        <div class="popup-content">
+            <h3>Disease</h3>
+            <div class="output-para">
+                <p>{{ predicted_disease }}</p>
+            </div>
+            <button class="close-btn" onclick="closePopup('diseasePopup')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+
+    <div class="popup-overlay" id="descriptionPopup">
+        <div class="popup-content">
+            <h3>Description</h3>
+            <div class="output-para">
+                <p>{{ dis_des }}</p>
+            </div>
+            <button class="close-btn" onclick="closePopup('descriptionPopup')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+
+    <div class="popup-overlay" id="precautionPopup">
+        <div class="popup-content">
+            <h3>Precaution</h3>
+            <div class="output-para">
+                <ul>
+                    {% for i in my_precautions %}
+                        <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button class="close-btn" onclick="closePopup('precautionPopup')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+
+    <div class="popup-overlay" id="medicationPopup">
+        <div class="popup-content">
+            <h3>Medication</h3>
+            <div class="output-para">
+                <ul>
+                    {% for i in medications %}
+                        <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button class="close-btn" onclick="closePopup('medicationPopup')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+
+    <div class="popup-overlay" id="workoutPopup">
+        <div class="popup-content">
+            <h3>Workout</h3>
+            <div class="output-para">
+                <ul>
+                    {% for i in workout %}
+                        <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button class="close-btn" onclick="closePopup('workoutPopup')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+
+    <div class="popup-overlay" id="dietsPopup">
+        <div class="popup-content">
+            <h3>Diets</h3>
+            <div class="output-para">
+                <ul>
+                    {% for i in my_diet %}
+                        <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button class="close-btn" onclick="closePopup('dietsPopup')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
+</body>
+</html>
