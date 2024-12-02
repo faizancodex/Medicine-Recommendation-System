@@ -9,7 +9,17 @@
     <!-- fontawesome cdn -->
     <script src="https://kit.fontawesome.com/47bfcb75ec.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- Include Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Include jQuery (required for Select2) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 </head>
+
+
+
 
 <body>
 
@@ -27,31 +37,26 @@
             <a href="/developer">Developer</a>
             <a href="/blog">Blog</a>
         </nav>
-
-        <div class="user-account">
-            <a href="#" class="btn" title="Create account">Signup</a>
-        </div>
     </header>
 
     <main>
         <!-- input box -->
         <div class="input-container">
-            <div>
-                <form  action="/predict" method="post">
-                    <label for="symptoms">Enter your symptoms:</label>
-                    <br>
-                    <textarea name="symptoms" id="output" rows="4" cols="80"
-                        placeholder="Type symptoms such as high_fever, vomiting, headache etc" required></textarea>
-                    <button title="Search by voice" type="button" class="microphone" onclick="startRecognition()">
-                        <i id="microphone-icon" class="fas fa-microphone"></i>
-                    </button>
+            <div class="form-container">
+                <form method="POST" action="/predict">
+                    <label for="symptoms" class="form-label">Enter Symptoms:</label>
+                    <select id="symptoms" name="symptoms" multiple="multiple" class="form-select">
+                        {% for symptom in symptoms_dict.keys() %}
+                            <option value="{{ symptom }}">{{ symptom }}</option>
+                        {% endfor %}
+                    </select>
+                    <!-- Display the message (if any) -->
                     {% if message %}
-
-                    <p>{{ message }}</p>
-                    
+                        <div class="error-message">
+                            {{ message }}
+                        </div>
                     {% endif %}
-                    <br>
-                    <button type="submit" class="submit">Predict</button>
+                    <button type="submit" class="submit-btn">Predict</button>
                 </form>
             </div>
         </div>
@@ -163,6 +168,15 @@
 
     
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#symptoms').select2({
+                placeholder: "Type symptoms such as chest_pain, vomiting, itching etc",
+                allowClear: true,
+            });
+        });
+    </script>
+    
     
 </body>
 </html>
