@@ -72,7 +72,7 @@ def predict():
         symptoms = request.form.get('symptoms')
         
         if not symptoms:
-            message = "Please enter symptoms."
+            message = "Please enter at least one symptom."
             return render_template('index.html', message=message, symptoms_dict=symptoms_dict)
         
         # Process user input (split symptoms by commas and strip spaces)
