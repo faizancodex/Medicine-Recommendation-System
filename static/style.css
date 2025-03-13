@@ -115,7 +115,6 @@ main .form-container form .form-select:focus {
   border-color: #50c878;
 }
 
-
 /* Error message styling */
 .error-message {
   color: red;
@@ -138,11 +137,7 @@ main .form-container form .form-select:focus {
 .submit-btn:hover {
   background-color: #0056b3;
 }
-
-
-
 /* END END END */
-
 .output-container {
   display: flex;
   flex-direction: column;
@@ -150,7 +145,6 @@ main .form-container form .form-select:focus {
   align-items: center;
   height: 100%;
 }
-
 
 .out-buttons {
   display: flex;
