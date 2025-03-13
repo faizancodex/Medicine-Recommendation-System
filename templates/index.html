@@ -45,7 +45,7 @@
             <div class="form-container">
                 <form method="POST" action="/predict">
                     <label for="symptoms" class="form-label">Enter Symptoms:</label>
-                    <select id="symptoms" name="symptoms" multiple="multiple" class="form-select">
+                    <select  id="symptoms" name="symptoms" multiple="multiple" class="form-select">
                         {% for symptom in symptoms_dict.keys() %}
                             <option value="{{ symptom }}">{{ symptom }}</option>
                         {% endfor %}
