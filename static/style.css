@@ -104,7 +104,6 @@ form .form-label {
 /* Dropdown Styling */
 main .form-container form .form-select {
   padding: 10px;
-  /* font-size: 18px; */
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 15px;
@@ -147,12 +146,9 @@ main .form-container form .form-select:focus {
 .output-container {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   justify-content: space-between;
   align-items: center;
-  /* height: 40vh; */
   height: 100%;
-  /* background-color: rgb(65, 42, 165); */
 }
 
 
@@ -167,7 +163,6 @@ main .form-container form .form-select:focus {
   font-size: 18px;
   padding: 8px 16px;
   outline: none;
-  /* background-color: #50c878; */
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -191,8 +186,6 @@ main .form-container form .form-select:focus {
 /* Popup content box */
 .popup-content {
   background-color: white;
-  /* padding: 10px; */
-  /* border-radius: 5px; */
   width: 400px;
   height: 250px;
   text-align: center;
@@ -207,7 +200,6 @@ main .form-container form .form-select:focus {
   padding: 10px 30px;
   text-align: justify;
   width: 100%;
-  /* text-align: center; */
   overflow-y: scroll;
 }
 
