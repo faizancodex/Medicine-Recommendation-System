@@ -65,30 +65,16 @@ def get_predicted_value(patient_symptoms):
 def index():
     return render_template("index.html", symptoms_dict=symptoms_dict)
 
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
-        # Retrieve symptoms input from the form
-        symptoms = request.form.get('symptoms')
-        
+        symptoms = request.form.getlist('symptoms')  # Get selected symptoms
+
         if not symptoms:
-            message = "Please enter at least one symptom."
-            return render_template('index.html', message=message, symptoms_dict=symptoms_dict)
-        
-        # Process user input (split symptoms by commas and strip spaces)
-        user_symptoms = [s.strip().lower() for s in symptoms.split(',')]
-        
-        # Validate symptoms against the valid symptoms dictionary
-        valid_symptoms = set(symptoms_dict.keys())
-        invalid_symptoms = [s for s in user_symptoms if s not in valid_symptoms]
-        
-        # If invalid symptoms are found, notify the user
-        if invalid_symptoms:
-            message = f"Invalid symptoms: {', '.join(invalid_symptoms)}. Please check your input."
-            return render_template('index.html', message=message, symptoms_dict=symptoms_dict)
-        
-        # Proceed with the prediction
-        predicted_disease = get_predicted_value(user_symptoms)
+            message = "Please select at least one symptom."
+            return render_template('index.html', message=message, symptoms_dict=symptoms_dict, selected_symptoms=[])
+
+        predicted_disease = get_predicted_value(symptoms)
         dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
 
         return render_template(
@@ -99,11 +85,11 @@ def predict():
             medications=medications,
             my_diet=rec_diet,
             workout=workout,
-            symptoms_dict=symptoms_dict  # Pass symptoms_dict here too
+            symptoms_dict=symptoms_dict,
+            selected_symptoms=symptoms  # Pass selected symptoms back to the template
         )
 
-    return render_template('index.html', symptoms_dict=symptoms_dict)
-
+    return render_template('index.html', symptoms_dict=symptoms_dict, selected_symptoms=[])
 
 @app.route('/about')
 def about():

@@ -48,9 +48,11 @@
             <div class="form-container">
                 <form method="POST" action="/predict">
                     <label for="symptoms" class="form-label">Enter Symptoms:</label>
-                    <select id="symptoms" name="symptoms" multiple="multiple" class="form-select">
+                    <select id="symptoms" name="symptoms" multiple="multiple" style="width: 100%;">
                         {% for symptom in symptoms_dict.keys() %}
-                        <option value="{{ symptom }}">{{ symptom }}</option>
+                        <option value="{{ symptom }}" {% if symptom in selected_symptoms %} selected {% endif %}>
+                            {{ symptom.replace('_', ' ').title() }}
+                        </option>
                         {% endfor %}
                     </select>
                     <!-- Display the message (if any) -->
@@ -90,30 +92,36 @@
 
     <div class="popup-overlay" id="diseasePopup">
         <div class="popup-content">
-            <h3>Disease</h3>
+            <div class="popup--heading">
+                <h3>Disease</h3>
+                <button class="close-btn" onclick="closePopup('diseasePopup')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
             <div class="output-para">
                 <p>{{ predicted_disease }}</p>
             </div>
-            <button class="close-btn" onclick="closePopup('diseasePopup')"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
 
     <div class="popup-overlay" id="descriptionPopup">
         <div class="popup-content">
-            <h3>Description</h3>
+            <div class="popup--heading">
+                <h3>Disease</h3>
+                <button class="close-btn" onclick="closePopup('descriptionPopup')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
             <div class="output-para">
                 <p>{{ dis_des }}</p>
             </div>
-            <button class="close-btn" onclick="closePopup('descriptionPopup')"><i
-                    class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
 
     <div class="popup-overlay" id="precautionPopup">
         <div class="popup-content">
-            <h3>Precaution</h3>
+            <div class="popup--heading">
+                <h3>Disease</h3>
+                <button class="close-btn" onclick="closePopup('precautionPopup')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
             <div class="output-para">
                 <ul>
                     {% for i in my_precautions %}
@@ -121,14 +129,16 @@
                     {% endfor %}
                 </ul>
             </div>
-            <button class="close-btn" onclick="closePopup('precautionPopup')"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
 
     <div class="popup-overlay" id="medicationPopup">
         <div class="popup-content">
-            <h3>Medication</h3>
+            <div class="popup--heading">
+                <h3>Disease</h3>
+                <button class="close-btn" onclick="closePopup('medicationPopup')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
             <div class="output-para">
                 <ul>
                     {% for i in medications %}
@@ -136,14 +146,16 @@
                     {% endfor %}
                 </ul>
             </div>
-            <button class="close-btn" onclick="closePopup('medicationPopup')"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
 
     <div class="popup-overlay" id="workoutPopup">
         <div class="popup-content">
-            <h3>Workout</h3>
+            <div class="popup--heading">
+                <h3>Disease</h3>
+                <button class="close-btn" onclick="closePopup('workoutPopup')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
             <div class="output-para">
                 <ul>
                     {% for i in workout %}
@@ -151,14 +163,16 @@
                     {% endfor %}
                 </ul>
             </div>
-            <button class="close-btn" onclick="closePopup('workoutPopup')"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
 
     <div class="popup-overlay" id="dietsPopup">
         <div class="popup-content">
-            <h3>Diets</h3>
+            <div class="popup--heading">
+                <h3>Disease</h3>
+                <button class="close-btn" onclick="closePopup('dietsPopup')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
             <div class="output-para">
                 <ul>
                     {% for i in my_diet %}
@@ -166,7 +180,6 @@
                     {% endfor %}
                 </ul>
             </div>
-            <button class="close-btn" onclick="closePopup('dietsPopup')"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
 
@@ -176,8 +189,10 @@
         $(document).ready(function () {
             $('#symptoms').select2({
                 placeholder: "Type symptoms such as chest_pain, vomiting, itching etc",
+                allowClear: true
             });
         });
     </script>
 </body>
+
 </html>
