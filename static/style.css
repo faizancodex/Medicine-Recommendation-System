@@ -167,6 +167,7 @@ form .form-label {
   position: fixed;
   top: 0;
   left: 0;
+  padding: 0 25px;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
@@ -198,16 +199,19 @@ form .form-label {
 
 .popup--heading {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: black;
   color: white;
   padding: 8px 16px;
   width: 100%;
 }
+.popup--heading h3{
+  padding: 0 20px;
+  width: 100%;
+}
 /* Close button */
 .close-btn {
-  transform: translateX(140px);
   display: flex;
   font-size: 20px;
   cursor: pointer;
