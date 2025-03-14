@@ -6,20 +6,42 @@
   text-decoration: none;
 }
 
+:root {
+  --btn-size: 16px;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 main {
-  padding: 0px 20px;
+  padding: 0px 40px;
 }
 
 header {
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 8px 3vw;
-  background-color: #50c878;
+  padding: 8px 5vw;
+  background-color:cornflowerblue;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  right: 5vw;
+  z-index: 1000;
+}
+
+.hamburger .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 5px 0;
+  -webkit-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
 }
 
 .logo {
@@ -28,7 +50,7 @@ header {
   justify-content: center;
 }
 .logo img {
-  width: 50px;
+  width: 45px;
   border-radius: 50px;
 }
 .logo h2 {
@@ -42,30 +64,17 @@ header nav {
 
 header nav a {
   padding: 8px 16px;
-  font-size: 18px;
+  font-size: var(--btn-size);
   color: white;
-  transition: transform 0.3s ease-in-out;
-  border-radius: 5px;
 }
+
+nav a.active{
+  color: black;
+}
+
 
 header nav a:hover {
-  background-color: #dadada;
   color: black;
-}
-
-header .user-account {
-  margin-left: auto;
-}
-
-header .user-account a {
-  font-size: 18px;
-  padding: 8px 16px;
-  border-radius: 5px;
-  background-color: white;
-  color: black;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: transform 0.3s ease-in-out;
 }
 
 /* <!-- input box --> */
@@ -81,9 +90,8 @@ header .user-account a {
 /* Container for the form */
 main .form-container {
   width: 600px;
-  margin: 0 auto;
-  padding: 10px;
-  background-color: #ededed;
+  padding: 30px;
+  border: #50c878 1px solid;
   border-radius: 6px;
 }
 
@@ -96,24 +104,12 @@ main .form-container form {
 
 /* Label styling */
 form .form-label {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: var(--btn-size);
   color: #333;
 }
 
-/* Dropdown Styling */
-main .form-container form .form-select {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  background-color: #fff;
-  box-sizing: border-box;
-  outline: none;
-}
-main .form-container form .form-select:focus {
-  border-color: #50c878;
-}
+
+
 
 /* Error message styling */
 .error-message {
@@ -125,8 +121,8 @@ main .form-container form .form-select:focus {
 /* Button Styling */
 .submit-btn {
   padding: 12px 20px;
-  font-size: 18px;
-  background-color: #007bff;
+  font-size: var(--btn-size);
+  background-color: #50c878;
   color: white;
   border: none;
   border-radius: 6px;
@@ -135,7 +131,7 @@ main .form-container form .form-select:focus {
 }
 
 .submit-btn:hover {
-  background-color: #0056b3;
+  background-color: #3cb163;
 }
 /* END END END */
 .output-container {
@@ -143,18 +139,20 @@ main .form-container form .form-select:focus {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
   height: 100%;
 }
-
 .out-buttons {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
   flex-wrap: wrap;
-  gap: 80px;
-  margin-top: 20px;
+  /* flex-direction: column; */
 }
 
 .out-buttons button {
-  font-size: 18px;
+  font-size: var(--btn-size);
   padding: 8px 16px;
   outline: none;
   border: none;
@@ -195,6 +193,7 @@ main .form-container form .form-select:focus {
   text-align: justify;
   width: 100%;
   overflow-y: scroll;
+  font-size: var(--btn-size);
 }
 
 .popup--heading {
@@ -210,10 +209,67 @@ main .form-container form .form-select:focus {
 .close-btn {
   transform: translateX(140px);
   display: flex;
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
   background: none;
   outline: none;
-  border:none;
+  border: none;
   color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .hamburger {
+    display: block;
+    float: right;
+  }
+  #navMenu {
+    position: absolute;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    background-color:cornflowerblue;
+    margin-top: 20px;
+    z-index: 99;
+    padding-bottom: 0;
+    top: 40px;
+    right: 0;
+    width: 100%;
+    max-height: 0;  
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+}
+
+/* Show navigation when 'open' class is added */
+#navMenu.open {
+    max-height: 300px; 
+    padding-bottom: 20px;
+}
+
+
+  /* Change appearance when active */
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+@media screen and (max-width: 680px) {
+  main .form-container {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 425px) {
+  .input-container {
+    height: 40vh;
+  }
+  .output-heading {
+    text-align: center;
+  }
 }
